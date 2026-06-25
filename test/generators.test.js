@@ -28,14 +28,15 @@ test('generators include selectors screenshots and video artifacts', () => {
   assert.match(mermaid, /playback\.mp4/);
   assert.match(playwrightScript, /test\.use\(\{ video: 'on' \}\);/);
   assert.match(playwrightScript, /PLAYWRIGHT_VIDEO_PATH/);
-  assert.match(playwrightScript, /video\.saveAs\(process\.env\.PLAYWRIGHT_VIDEO_PATH\)/);
+  assert.match(playwrightScript, /video\.saveAs\(outputVideoPath\)/);
   assert.match(playwrightScript, /FFMPEG_PATH/);
   assert.match(playwrightScript, /PLAYWRIGHT_VIDEO_PATH was set but Playwright did not expose a page video/);
+  assert.match(playwrightScript, /path\.resolve\(artifactDir, requestedVideoPath\)/);
   assert.match(playwrightScript, /requestedVideoPath\.toLowerCase\(\)\.endsWith\('\.mp4'\)/);
   assert.match(playwrightScript, /video\.saveAs\(sourceVideoPath\)/);
   assert.match(playwrightScript, /libx264/);
-  assert.match(playwrightScript, /await page\.locator\('#pricing-link'\)\.click\(\);/);
-  assert.match(playwrightScript, /await page\.locator\('\[data-testid="demo-email"\]'\)\.fill\('george@example.com'\);/);
+  assert.match(playwrightScript, /await clickRecorderTarget\(page, '#pricing-link'\);/);
+  assert.match(playwrightScript, /await fillRecorderTarget\(page, '\[data-testid="demo-email"\]', 'george@example.com'\);/);
   assert.match(playwrightScript, /screenshots\/03-fill-demo-email\.png/);
   assert.match(playwrightScript, /fileURLToPath\(import\.meta\.url\)/);
   assert.match(playwrightScript, /path\.resolve\(artifactDir, screenshotPath\)/);
@@ -88,4 +89,25 @@ test('generatePlaywrightScript adds visible recorder step overlays and dwell tim
   assert.match(script, /await showRecorderStep\(page, 'step-02: CLICK Pricing', '#pricing-link'\);/);
   assert.match(script, /data-agents-recorder-highlight/);
   assert.match(script, /await page\.waitForTimeout\(recorderStepDelayMs\);/);
+});
+
+test('generatePlaywrightScript emits smooth recorder cursor movement controls', () => {
+  const script = generatePlaywrightScript(flow);
+
+  assert.match(script, /AGENTS_RECORDER_MOUSE_MOVE_MS/);
+  assert.match(script, /data-agents-recorder-cursor/);
+  assert.match(script, /await moveRecorderMouseTo\(page, '#pricing-link'\);/);
+  assert.match(script, /await moveRecorderMouseTo\(page, '\[data-testid="demo-email"\]'\);/);
+  assert.match(script, /await page\.mouse\.move\(x, y, \{ steps: recorderMouseSteps \}\);/);
+});
+
+test('generatePlaywrightScript focuses targets before paced interactions', () => {
+  const script = generatePlaywrightScript(flow);
+
+  assert.match(script, /AGENTS_RECORDER_KEYSTROKE_DELAY_MS/);
+  assert.match(script, /await focusRecorderTarget\(page, '#pricing-link'\);/);
+  assert.match(script, /await clickRecorderTarget\(page, '#pricing-link'\);/);
+  assert.match(script, /await focusRecorderTarget\(page, '\[data-testid="demo-email"\]'\);/);
+  assert.match(script, /await fillRecorderTarget\(page, '\[data-testid="demo-email"\]', 'george@example.com'\);/);
+  assert.match(script, /await page\.keyboard\.type\(value, \{ delay: recorderKeystrokeDelayMs \}\);/);
 });

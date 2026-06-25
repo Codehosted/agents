@@ -1,82 +1,63 @@
-export function generatePlaywrightScript(flow) {
-  const baseUrl = flow.baseUrl ?? 'http://localhost:3000';
-  const lines = [
-    "import { mkdir, rm } from 'node:fs/promises';",
-    "import { execFile } from 'node:child_process';",
-    "import path from 'node:path';",
-    "import { promisify } from 'node:util';",
-    "import { fileURLToPath } from 'node:url';",
-    "import { test, expect } from '@playwright/test';",
-    '',
-    "test.use({ video: 'on' });",
-    '',
-    'const artifactDir = path.dirname(fileURLToPath(import.meta.url));',
-    'const execFileAsync = promisify(execFile);',
-    "const recorderStepDelayMs = Number(process.env.AGENTS_RECORDER_STEP_DELAY_MS ?? '900');",
-    "const recorderMouseMoveMs = Number(process.env.AGENTS_RECORDER_MOUSE_MOVE_MS ?? '700');",
-    'const recorderMouseSteps = Math.max(8, Math.round(recorderMouseMoveMs / 16));',
-    "const recorderKeystrokeDelayMs = Number(process.env.AGENTS_RECORDER_KEYSTROKE_DELAY_MS ?? '35');",
-    `const baseUrl = ${quote(baseUrl)};`,
-    '',
-    `test(${quote(flow.name ?? 'generated recorder flow')}, async ({ page }) => {`
-  ];
+import { mkdir, rm } from 'node:fs/promises';
+import { execFile } from 'node:child_process';
+import path from 'node:path';
+import { promisify } from 'node:util';
+import { fileURLToPath } from 'node:url';
+import { test, expect } from '@playwright/test';
 
-  for (const step of flow.steps ?? []) {
-    lines.push(...scriptLinesForStep(step));
-  }
+test.use({ video: 'on' });
 
-  lines.push('  await saveRequestedVideo(page);', '});', '', helperSource());
-  return lines.join('\n');
-}
+const artifactDir = path.dirname(fileURLToPath(import.meta.url));
+const execFileAsync = promisify(execFile);
+const recorderStepDelayMs = Number(process.env.AGENTS_RECORDER_STEP_DELAY_MS ?? '900');
+const recorderMouseMoveMs = Number(process.env.AGENTS_RECORDER_MOUSE_MOVE_MS ?? '700');
+const recorderMouseSteps = Math.max(8, Math.round(recorderMouseMoveMs / 16));
+const recorderKeystrokeDelayMs = Number(process.env.AGENTS_RECORDER_KEYSTROKE_DELAY_MS ?? '35');
+const baseUrl = 'http://localhost:4173';
 
-function scriptLinesForStep(step) {
-  const stepLabel = `${step.id}: ${step.type.toUpperCase()} ${step.label ?? step.route ?? ''}`.trim();
-  const selectorArg = step.selector ? `, ${quote(step.selector)}` : '';
-  const lines = [`  // ${stepLabel}`];
+test('story', async ({ page }) => {
+  // step-01: VISIT Visit Recorder fixture
+  await page.goto(new URL('/', baseUrl).toString());
+  await expect(page).toHaveTitle(/Recorder fixture/);
+  await showRecorderStep(page, 'step-01: VISIT Visit Recorder fixture');
+  await saveStepScreenshot(page, 'screenshots/01-visit-home.png');
 
-  if (step.type === 'visit') {
-    lines.push(`  await page.goto(new URL(${quote(step.route ?? '/')}, baseUrl).toString());`);
-    if (step.assertion?.startsWith('title contains ')) {
-      const expected = step.assertion.match(/"([^"]+)"/)?.[1];
-      if (expected) lines.push(`  await expect(page).toHaveTitle(/${escapeRegex(expected)}/);`);
-    }
-    lines.push(`  await showRecorderStep(page, ${quote(stepLabel)});`);
-  }
+  // step-02: CLICK Pricing
+  await showRecorderStep(page, 'step-02: CLICK Pricing', '#pricing-link');
+  await moveRecorderMouseTo(page, '#pricing-link');
+  await focusRecorderTarget(page, '#pricing-link');
+  await clickRecorderTarget(page, '#pricing-link');
+  await settleRecorderStep(page);
+  await saveStepScreenshot(page, 'screenshots/02-click-pricing-link.png');
 
-  if (step.type === 'click') {
-    lines.push(`  await showRecorderStep(page, ${quote(stepLabel)}${selectorArg});`);
-    lines.push(`  await moveRecorderMouseTo(page, ${quote(step.selector)});`);
-    lines.push(`  await focusRecorderTarget(page, ${quote(step.selector)});`);
-    lines.push(`  await clickRecorderTarget(page, ${quote(step.selector)});`);
-    lines.push('  await settleRecorderStep(page);');
-  }
+  // step-03: FILL Demo email
+  await showRecorderStep(page, 'step-03: FILL Demo email', '[data-testid="demo-email"]');
+  await moveRecorderMouseTo(page, '[data-testid="demo-email"]');
+  await focusRecorderTarget(page, '[data-testid="demo-email"]');
+  await fillRecorderTarget(page, '[data-testid="demo-email"]', 'george@example.com');
+  await settleRecorderStep(page);
+  await saveStepScreenshot(page, 'screenshots/03-fill-demo-email.png');
 
-  if (step.type === 'fill') {
-    lines.push(`  await showRecorderStep(page, ${quote(stepLabel)}${selectorArg});`);
-    lines.push(`  await moveRecorderMouseTo(page, ${quote(step.selector)});`);
-    lines.push(`  await focusRecorderTarget(page, ${quote(step.selector)});`);
-    lines.push(`  await fillRecorderTarget(page, ${quote(step.selector)}, ${quote(step.value ?? '<value>')});`);
-    lines.push('  await settleRecorderStep(page);');
-  }
+  // step-04: CLICK Start recorder demo
+  await showRecorderStep(page, 'step-04: CLICK Start recorder demo', '#start-recorder-demo');
+  await moveRecorderMouseTo(page, '#start-recorder-demo');
+  await focusRecorderTarget(page, '#start-recorder-demo');
+  await clickRecorderTarget(page, '#start-recorder-demo');
+  await settleRecorderStep(page);
+  await saveStepScreenshot(page, 'screenshots/04-click-start-recorder-demo.png');
 
-  if (step.type === 'assert') {
-    lines.push(`  await showRecorderStep(page, ${quote(stepLabel)}${selectorArg});`);
-    lines.push(`  await moveRecorderMouseTo(page, ${quote(step.selector)});`);
-    lines.push(`  await focusRecorderTarget(page, ${quote(step.selector)});`);
-    lines.push(`  await expect(page.locator(${quote(step.selector)})).toBeVisible();`);
-    lines.push('  await settleRecorderStep(page);');
-  }
+  // step-05: ASSERT Demo Ready
+  await showRecorderStep(page, 'step-05: ASSERT Demo Ready', '#demo-ready');
+  await moveRecorderMouseTo(page, '#demo-ready');
+  await focusRecorderTarget(page, '#demo-ready');
+  await expect(page.locator('#demo-ready')).toBeVisible();
+  await settleRecorderStep(page);
+  await saveStepScreenshot(page, 'screenshots/05-assert-demo-ready.png');
 
-  if (step.screenshot) {
-    lines.push(`  await saveStepScreenshot(page, ${quote(step.screenshot)});`);
-  }
+  await saveRequestedVideo(page);
+});
 
-  lines.push('');
-  return lines;
-}
-
-function helperSource() {
-  return `async function saveStepScreenshot(page, screenshotPath) {
+async function saveStepScreenshot(page, screenshotPath) {
   const resolvedPath = path.resolve(artifactDir, screenshotPath);
   await mkdir(path.dirname(resolvedPath), { recursive: true });
   await page.screenshot({ path: resolvedPath, fullPage: true });
@@ -241,14 +222,4 @@ async function convertVideoToMp4(sourceVideoPath, outputVideoPath) {
     '-movflags', '+faststart',
     outputVideoPath
   ]);
-}
-`;
-}
-
-function quote(value) {
-  return `'${String(value).replace(/\\/g, '\\\\').replace(/'/g, "\\'")}'`;
-}
-
-function escapeRegex(value) {
-  return String(value).replace(/[.*+?^${}()|[\]\\/]/g, '\\$&');
 }

@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "name": "story",
+  "baseUrl": "http://localhost:4173",
+  "pages": [
+    {
+      "route": "/",
+      "title": "Recorder fixture",
+      "screenshot": "screenshots/home-page.png",
+      "elements": [
+        {
+          "id": "pricing-link",
+          "kind": "link",
+          "label": "Pricing",
+          "selector": "#pricing-link",
+          "href": "#pricing",
+          "route": "/",
+          "screenshot": "screenshots/home-a-1.png"
+        },
+        {
+          "testId": "demo-email",
+          "kind": "input",
+          "label": "Demo email",
+          "selector": "[data-testid=\"demo-email\"]",
+          "route": "/",
+          "screenshot": "screenshots/home-input-2.png"
+        },
+        {
+          "id": "start-recorder-demo",
+          "kind": "button",
+          "label": "Start recorder demo",
+          "selector": "#start-recorder-demo",
+          "route": "/",
+          "screenshot": "screenshots/home-button-3.png"
+        }
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "id": "step-01",
+      "screenshot": "screenshots/01-visit-home.png",
+      "type": "visit",
+      "route": "/",
+      "label": "Visit Recorder fixture",
+      "assertion": "title contains \"Recorder fixture\"",
+      "narration": "Open /"
+    },
+    {
+      "id": "step-02",
+      "screenshot": "screenshots/02-click-pricing-link.png",
+      "type": "click",
+      "route": "/",
+      "label": "Pricing",
+      "selector": "#pricing-link",
+      "elementKind": "link",
+      "buttonId": "pricing-link",
+      "narration": "Click pricing."
+    },
+    {
+      "id": "step-03",
+      "screenshot": "screenshots/03-fill-demo-email.png",
+      "type": "fill",
+      "route": "/",
+      "label": "Demo email",
+      "selector": "[data-testid=\"demo-email\"]",
+      "elementKind": "input",
+      "testId": "demo-email",
+      "value": "george@example.com",
+      "narration": "Fill demo email with george@example.com."
+    },
+    {
+      "id": "step-04",
+      "screenshot": "screenshots/04-click-start-recorder-demo.png",
+      "type": "click",
+      "route": "/",
+      "label": "Start recorder demo",
+      "selector": "#start-recorder-demo",
+      "elementKind": "button",
+      "buttonId": "start-recorder-demo",
+      "narration": "Click start recorder demo."
+    },
+    {
+      "id": "step-05",
+      "screenshot": "screenshots/05-assert-demo-ready.png",
+      "type": "assert",
+      "route": "/",
+      "label": "Demo Ready",
+      "selector": "#demo-ready",
+      "assertion": "element is visible",
+      "elementKind": "region",
+      "buttonId": "demo-ready",
+      "narration": "Confirm demo ready."
+    }
+  ],
+  "artifacts": {
+    "flowJson": "flow.json",
+    "flowDiagram": "flow.mmd",
+    "playwrightScript": "playwright.spec.js",
+    "timelineReport": "timeline.html",
+    "video": "playback.webm"
+  }
+}

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>story</title>
+  <style>
+    body { margin: 0; font-family: Inter, system-ui, sans-serif; background: #07101d; color: #e5f0ff; }
+    main { max-width: 1120px; margin: 0 auto; padding: 32px; }
+    .summary, .event, .artifact { border: 1px solid #24415f; background: #0e1a2c; border-radius: 18px; padding: 16px; margin: 14px 0; }
+    code { color: #d8b4fe; background: #1e1b4b; padding: 3px 6px; border-radius: 7px; }
+    img { width: 180px; max-width: 100%; border: 1px solid #24415f; border-radius: 12px; background: #0f172a; }
+    video { width: 100%; max-height: 360px; border-radius: 18px; background: #020617; }
+    .meta { color: #93a9c6; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>story</h1>
+    <section class="summary">
+      <p class="meta">Local Mixpanel-like timeline generated without proprietary analytics.</p>
+      <p><strong>Base URL:</strong> <code>http://localhost:4173</code></p>
+      <p><strong>Events:</strong> 5</p>
+    </section>
+    <section class="artifact">
+      <h2>Playback</h2>
+      <video controls src="playback.webm"></video>
+    </section>
+    <section aria-label="Timeline events">
+      <article class="event" id="step-01">
+  <p class="meta">+0.000s · VISIT · /</p>
+  <h2>Visit Recorder fixture</h2>
+  <p><strong>Assertion:</strong> title contains &quot;Recorder fixture&quot;</p>
+  <p><strong>Narration:</strong> Open /</p>
+  <p><strong>Screenshot:</strong> <code>screenshots/01-visit-home.png</code></p><img src="screenshots/01-visit-home.png" alt="Screenshot for Visit Recorder fixture" />
+</article>
+<article class="event" id="step-02">
+  <p class="meta">+2.250s · CLICK · /</p>
+  <h2>Pricing</h2>
+  <p><strong>Selector:</strong> <code>#pricing-link</code></p>
+  <p><strong>Button ID:</strong> <code>pricing-link</code></p>
+  <p><strong>Narration:</strong> Click pricing.</p>
+  <p><strong>Screenshot:</strong> <code>screenshots/02-click-pricing-link.png</code></p><img src="screenshots/02-click-pricing-link.png" alt="Screenshot for Pricing" />
+</article>
+<article class="event" id="step-03">
+  <p class="meta">+4.500s · FILL · /</p>
+  <h2>Demo email</h2>
+  <p><strong>Selector:</strong> <code>[data-testid=&quot;demo-email&quot;]</code></p>
+  <p><strong>Test ID:</strong> <code>demo-email</code></p>
+  <p><strong>Narration:</strong> Fill demo email with george@example.com.</p>
+  <p><strong>Screenshot:</strong> <code>screenshots/03-fill-demo-email.png</code></p><img src="screenshots/03-fill-demo-email.png" alt="Screenshot for Demo email" />
+</article>
+<article class="event" id="step-04">
+  <p class="meta">+6.750s · CLICK · /</p>
+  <h2>Start recorder demo</h2>
+  <p><strong>Selector:</strong> <code>#start-recorder-demo</code></p>
+  <p><strong>Button ID:</strong> <code>start-recorder-demo</code></p>
+  <p><strong>Narration:</strong> Click start recorder demo.</p>
+  <p><strong>Screenshot:</strong> <code>screenshots/04-click-start-recorder-demo.png</code></p><img src="screenshots/04-click-start-recorder-demo.png" alt="Screenshot for Start recorder demo" />
+</article>
+<article class="event" id="step-05">
+  <p class="meta">+9.000s · ASSERT · /</p>
+  <h2>Demo Ready</h2>
+  <p><strong>Selector:</strong> <code>#demo-ready</code></p>
+  <p><strong>Button ID:</strong> <code>demo-ready</code></p>
+  <p><strong>Assertion:</strong> element is visible</p>
+  <p><strong>Narration:</strong> Confirm demo ready.</p>
+  <p><strong>Screenshot:</strong> <code>screenshots/05-assert-demo-ready.png</code></p><img src="screenshots/05-assert-demo-ready.png" alt="Screenshot for Demo Ready" />
+</article>
+    </section>
+  </main>
+</body>
+</html>

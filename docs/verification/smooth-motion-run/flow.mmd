@@ -1,0 +1,12 @@
+flowchart TD
+  step-01["VISIT: Visit Recorder fixture\ntitle contains \"Recorder fixture\""]
+  step-02["CLICK: Pricing\n#pricing-link"]
+  step-03["FILL: Demo email\n[data-testid=\"demo-email\"]"]
+  step-04["CLICK: Start recorder demo\n#start-recorder-demo"]
+  step-05["ASSERT: Demo Ready\n#demo-ready"]
+  step-01 --> step-02
+  step-02 --> step-03
+  step-03 --> step-04
+  step-04 --> step-05
+  video[["VIDEO: playback.webm"]]
+  step-05 --> video

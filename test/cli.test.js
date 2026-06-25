@@ -34,7 +34,9 @@ test('CLI plan writes flow diagram script timeline and recorder command artifact
 
     assert.equal(flow.steps.length, 5);
     assert.match(mermaid, /#start-recorder-demo/);
-    assert.match(script, /page\.locator\('#pricing-link'\)\.click/);
+    assert.match(script, /moveRecorderMouseTo\(page, '#pricing-link'\)/);
+    assert.match(script, /focusRecorderTarget\(page, '#pricing-link'\)/);
+    assert.match(script, /clickRecorderTarget\(page, '#pricing-link'\)/);
     assert.match(timeline, /playback\.webm/);
     assert.equal(recorder.command, 'npx');
   } finally {
