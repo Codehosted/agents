@@ -49,8 +49,8 @@ Source of truth for the static-output-to-Playwright/video recorder project. A st
     - Created public GitHub repo: https://github.com/Codehosted/agents (`gh repo create Codehosted/agents --public --description "Local-first static-output to Playwright recorder and timeline toolkit" --source=. --remote=origin`).
     - Pushed seed `main` branch and implementation branch `feat/recorder-scaffold` with `git push -u origin main` and `git push -u origin feat/recorder-scaffold`.
     - Opened draft PR: https://github.com/Codehosted/agents/pull/1 (`feat: scaffold recorder automation toolkit`) from `feat/recorder-scaffold` to `main`.
-    - `gh pr view --json number,url,title,state,isDraft,headRefName,baseRefName` confirmed PR #1 is open and draft.
-    - `gh pr checks 1 --watch --interval 10` reported no checks configured on the branch.
+    - PR #1 has since been merged into `main`; `gh pr view 1 --json number,url,title,state,isDraft,headRefName,baseRefName,headRefOid,statusCheckRollup,mergeable` returned `state=MERGED`, `isDraft=false`, `headRefOid=6352ec7b8cd405556d0c97b9fae32416f2b86ce7`, and no configured status checks.
+    - Current pushed `main` tip after merge is `846c34c` (`Merge pull request #1 from Codehosted/feat/recorder-scaffold`).
 
 ## Product acceptance notes
 
