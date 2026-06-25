@@ -1,0 +1,24 @@
+{
+  "name": "@codehosted/agents-recorder",
+  "version": "0.1.0",
+  "description": "Local-first static-output to Playwright/video recorder planning toolkit.",
+  "type": "module",
+  "bin": {
+    "agents-recorder": "./bin/agents-recorder.js"
+  },
+  "scripts": {
+    "test": "node --test",
+    "coverage": "node --test --experimental-test-coverage"
+  },
+  "keywords": [
+    "playwright",
+    "recorder",
+    "automation",
+    "static-site",
+    "timeline"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  }
+}

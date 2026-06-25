@@ -1,0 +1,14 @@
+{
+  "command": "npx",
+  "args": [
+    "playwright",
+    "test",
+    "docs/verification/sample-run/playwright.spec.js",
+    "--project=chromium",
+    "--output=docs/verification/sample-run/recording"
+  ],
+  "env": {
+    "PLAYWRIGHT_VIDEO_PATH": "docs/verification/sample-run/playback.webm"
+  },
+  "videoPath": "docs/verification/sample-run/playback.webm"
+}

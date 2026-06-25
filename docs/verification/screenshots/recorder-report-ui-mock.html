@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Codehosted Agents Recorder - Report UI Mock</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #070b13;
+      color: #eef6ff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 36px;
+      background:
+        linear-gradient(120deg, rgba(14, 165, 233, 0.12), transparent 32%),
+        radial-gradient(circle at 88% 24%, rgba(168, 85, 247, 0.16), transparent 28rem),
+        #070b13;
+    }
+    .app {
+      max-width: 1360px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 300px 1fr 350px;
+      min-height: 820px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 30px;
+      overflow: hidden;
+      background: rgba(15, 23, 42, 0.82);
+      box-shadow: 0 34px 90px rgba(0, 0, 0, 0.38);
+    }
+    aside {
+      border-right: 1px solid rgba(148, 163, 184, 0.18);
+      padding: 24px;
+      background: rgba(2, 6, 23, 0.54);
+    }
+    .brand {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 26px;
+    }
+    .nav-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 0;
+      padding: 12px 13px;
+      border-radius: 14px;
+      color: #afc1d8;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      font-weight: 700;
+    }
+    .nav-item.active {
+      color: #e0f2fe;
+      border-color: rgba(56, 189, 248, 0.35);
+      background: rgba(14, 165, 233, 0.14);
+    }
+    .count {
+      color: #7dd3fc;
+      font-variant-numeric: tabular-nums;
+    }
+    main { padding: 26px; }
+    header {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: flex-start;
+      margin-bottom: 22px;
+    }
+    h1 { margin: 0; font-size: 30px; letter-spacing: -0.04em; }
+    p { color: #9db1cc; line-height: 1.55; margin: 8px 0 0; }
+    .status {
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.34);
+      color: #bbf7d0;
+      font-size: 13px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .card {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(2, 6, 23, 0.44);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+    }
+    .card b { display: block; font-size: 24px; margin-top: 4px; }
+    .card span { color: #8fa2bc; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; }
+    .timeline {
+      border-radius: 22px;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      overflow: hidden;
+    }
+    .event {
+      display: grid;
+      grid-template-columns: 86px 128px 1fr 170px;
+      gap: 16px;
+      align-items: center;
+      padding: 15px 18px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+      background: rgba(15, 23, 42, 0.46);
+    }
+    .event:last-child { border-bottom: 0; }
+    .time { color: #93c5fd; font-variant-numeric: tabular-nums; font-weight: 800; }
+    .type {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(59, 130, 246, 0.16);
+      color: #bfdbfe;
+      border: 1px solid rgba(96, 165, 250, 0.22);
+      font-weight: 900;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+    .event strong { display: block; margin-bottom: 4px; }
+    code {
+      color: #d8b4fe;
+      background: rgba(168, 85, 247, 0.12);
+      border: 1px solid rgba(168, 85, 247, 0.18);
+      border-radius: 8px;
+      padding: 4px 6px;
+      font-size: 12px;
+    }
+    .thumb {
+      height: 72px;
+      border-radius: 12px;
+      background:
+        linear-gradient(135deg, rgba(56, 189, 248, 0.28), rgba(15, 23, 42, 0.1)),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0 6px, transparent 6px 12px);
+      border: 1px solid rgba(148, 163, 184, 0.24);
+      display: grid;
+      place-items: center;
+      color: #cde6ff;
+      font-size: 12px;
+      font-weight: 900;
+    }
+    section.right {
+      border-left: 1px solid rgba(148, 163, 184, 0.18);
+      padding: 24px;
+      background: rgba(2, 6, 23, 0.42);
+    }
+    .video {
+      min-height: 210px;
+      border-radius: 22px;
+      border: 1px solid rgba(125, 211, 252, 0.3);
+      background:
+        linear-gradient(135deg, rgba(14, 165, 233, 0.18), rgba(15, 23, 42, 0.66)),
+        radial-gradient(circle at center, rgba(125, 211, 252, 0.25), transparent 36%);
+      display: grid;
+      place-items: center;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .play {
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(224, 242, 254, 0.92);
+      color: #082f49;
+      font-size: 34px;
+      box-shadow: 0 18px 44px rgba(14, 165, 233, 0.32);
+    }
+    .artifact {
+      margin: 12px 0;
+      padding: 13px;
+      border-radius: 15px;
+      background: rgba(15, 23, 42, 0.72);
+      border: 1px solid rgba(148, 163, 184, 0.17);
+    }
+    .artifact strong { display: block; margin-bottom: 4px; }
+    .artifact span { color: #91a6c2; font-size: 13px; }
+    .notes {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(45, 212, 191, 0.24);
+      background: rgba(20, 184, 166, 0.1);
+      color: #ccfbf1;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    @media (max-width: 1100px) {
+      .app { grid-template-columns: 1fr; }
+      aside, section.right { border: 0; }
+      .cards { grid-template-columns: repeat(2, 1fr); }
+      .event { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app" role="img" aria-label="Mock local timeline report UI showing events, selectors, screenshots, and video playback slot">
+    <aside>
+      <div class="brand">Codehosted Agents Recorder</div>
+      <div class="nav-item active">Timeline <span class="count">8</span></div>
+      <div class="nav-item">Selectors <span class="count">6</span></div>
+      <div class="nav-item">Screenshots <span class="count">5</span></div>
+      <div class="nav-item">Console/Network <span class="count">2</span></div>
+      <div class="nav-item">Artifacts <span class="count">4</span></div>
+      <p>Local-only report inspired by product analytics timelines, with no proprietary analytics dependency.</p>
+    </aside>
+
+    <main>
+      <header>
+        <div>
+          <h1>Recorder run: narrated signup demo</h1>
+          <p>Story: “Open the landing page, inspect pricing, enter the demo email, start the recorder demo, and confirm the success state.”</p>
+        </div>
+        <div class="status">Completed locally</div>
+      </header>
+
+      <div class="cards">
+        <div class="card"><span>Duration</span><b>00:18.4</b></div>
+        <div class="card"><span>Actions</span><b>5</b></div>
+        <div class="card"><span>Assertions</span><b>3</b></div>
+        <div class="card"><span>Screenshots</span><b>5</b></div>
+      </div>
+
+      <section class="timeline" aria-label="Event timeline">
+        <div class="event"><span class="time">+0.000s</span><span class="type">visit</span><div><strong>Load landing page</strong><code>/</code> · assert title contains “Recorder”</div><div class="thumb">home.png</div></div>
+        <div class="event"><span class="time">+2.128s</span><span class="type">click</span><div><strong>Open pricing section</strong><code>#pricing-link</code> · button id captured</div><div class="thumb">pricing.png</div></div>
+        <div class="event"><span class="time">+5.441s</span><span class="type">fill</span><div><strong>Enter demo email</strong><code>[data-testid="demo-email"]</code> · redacted value</div><div class="thumb">email.png</div></div>
+        <div class="event"><span class="time">+8.902s</span><span class="type">click</span><div><strong>Start recorder demo</strong><code>#start-recorder-demo</code> · generated selector</div><div class="thumb">start.png</div></div>
+        <div class="event"><span class="time">+12.733s</span><span class="type">assert</span><div><strong>Success panel visible</strong><code>#demo-ready</code> · playback link available</div><div class="thumb">success.png</div></div>
+      </section>
+    </main>
+
+    <section class="right" aria-label="Run artifacts">
+      <h2>Playback</h2>
+      <div class="video"><div class="play">▶</div></div>
+      <div class="artifact"><strong>playback.webm</strong><span>Separate recorder process output</span></div>
+      <div class="artifact"><strong>flow.json</strong><span>Pages, actions, selectors, assertions, screenshots</span></div>
+      <div class="artifact"><strong>playwright.spec.js</strong><span>Generated automation script</span></div>
+      <div class="artifact"><strong>timeline.html</strong><span>Self-contained local report</span></div>
+      <div class="notes">Selector audit: #pricing-link, [data-testid="demo-email"], #start-recorder-demo, #demo-ready. Console notes and network transitions are attached to timeline events.</div>
+    </section>
+  </div>
+</body>
+</html>
