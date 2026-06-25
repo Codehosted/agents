@@ -38,6 +38,7 @@ test('createFlow maps story instructions to selector-rich actions and assertions
     'screenshots/04-click-start-recorder-demo.png',
     'screenshots/05-assert-demo-ready.png'
   ]);
+  assert.equal(flow.artifacts.video, 'playback.webm');
 });
 
 test('createFlow keeps dotted fill values intact from narrated stories', () => {

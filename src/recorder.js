@@ -26,6 +26,7 @@ export function recorderNotes(commandSpec) {
     cwdNote,
     `Command: ${commandSpec.command} ${commandSpec.args.join(' ')}`,
     `Expected video artifact: ${commandSpec.videoPath}`,
+    'For MP4 output, install ffmpeg or set FFMPEG_PATH to a compatible ffmpeg binary.',
     'Use Playwright video configuration or an open-source screen recorder such as ffmpeg/xvfb for environments that need whole-desktop capture.'
   ].join('\n');
 }

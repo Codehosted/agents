@@ -1,11 +1,14 @@
-import { mkdir } from 'node:fs/promises';
+import { mkdir, rm } from 'node:fs/promises';
+import { execFile } from 'node:child_process';
 import path from 'node:path';
+import { promisify } from 'node:util';
 import { fileURLToPath } from 'node:url';
 import { test, expect } from '@playwright/test';
 
 test.use({ video: 'on' });
 
 const artifactDir = path.dirname(fileURLToPath(import.meta.url));
+const execFileAsync = promisify(execFile);
 const recorderStepDelayMs = Number(process.env.AGENTS_RECORDER_STEP_DELAY_MS ?? '900');
 const baseUrl = 'http://localhost:4173';
 
@@ -108,9 +111,34 @@ async function settleRecorderStep(page) {
 
 async function saveRequestedVideo(page) {
   const video = page.video();
-  if (!process.env.PLAYWRIGHT_VIDEO_PATH || !video) return;
+  const requestedVideoPath = process.env.PLAYWRIGHT_VIDEO_PATH;
+  if (!requestedVideoPath || !video) return;
 
-  await mkdir(path.dirname(process.env.PLAYWRIGHT_VIDEO_PATH), { recursive: true });
+  await mkdir(path.dirname(requestedVideoPath), { recursive: true });
   await page.close();
+
+  if (requestedVideoPath.toLowerCase().endsWith('.mp4')) {
+    const sourceVideoPath = requestedVideoPath + '.source.webm';
+    await video.saveAs(sourceVideoPath);
+    try {
+      await convertVideoToMp4(sourceVideoPath, requestedVideoPath);
+    } finally {
+      await rm(sourceVideoPath, { force: true });
+    }
+    return;
+  }
+
   await video.saveAs(process.env.PLAYWRIGHT_VIDEO_PATH);
+}
+
+async function convertVideoToMp4(sourceVideoPath, outputVideoPath) {
+  const ffmpegPath = process.env.FFMPEG_PATH ?? 'ffmpeg';
+  await execFileAsync(ffmpegPath, [
+    '-y',
+    '-i', sourceVideoPath,
+    '-c:v', 'libx264',
+    '-pix_fmt', 'yuv420p',
+    '-movflags', '+faststart',
+    outputVideoPath
+  ]);
 }

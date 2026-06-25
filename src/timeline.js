@@ -53,16 +53,23 @@ export function generateTimelineHtml(flow, { events = createTimelineEvents(flow)
 }
 
 function renderEvent(event) {
-  return `<article class="event" id="${escapeAttribute(event.id)}">
-  <p class="meta">+${event.at.toFixed(3)}s · ${escapeHtml(event.type.toUpperCase())} · ${escapeHtml(event.route ?? '')}</p>
-  <h2>${escapeHtml(event.label ?? event.id)}</h2>
-  ${event.selector ? `<p><strong>Selector:</strong> <code>${escapeHtml(event.selector)}</code></p>` : ''}
-  ${event.buttonId ? `<p><strong>Button ID:</strong> <code>${escapeHtml(event.buttonId)}</code></p>` : ''}
-  ${event.testId ? `<p><strong>Test ID:</strong> <code>${escapeHtml(event.testId)}</code></p>` : ''}
-  ${event.assertion ? `<p><strong>Assertion:</strong> ${escapeHtml(event.assertion)}</p>` : ''}
-  ${event.narration ? `<p><strong>Narration:</strong> ${escapeHtml(event.narration)}</p>` : ''}
-  ${event.screenshot ? `<p><strong>Screenshot:</strong> <code>${escapeHtml(event.screenshot)}</code></p><img src="${escapeAttribute(event.screenshot)}" alt="Screenshot for ${escapeAttribute(event.label ?? event.id)}" />` : ''}
-</article>`;
+  const lines = [
+    `<article class="event" id="${escapeAttribute(event.id)}">`,
+    `  <p class="meta">+${event.at.toFixed(3)}s · ${escapeHtml(event.type.toUpperCase())} · ${escapeHtml(event.route ?? '')}</p>`,
+    `  <h2>${escapeHtml(event.label ?? event.id)}</h2>`
+  ];
+
+  if (event.selector) lines.push(`  <p><strong>Selector:</strong> <code>${escapeHtml(event.selector)}</code></p>`);
+  if (event.buttonId) lines.push(`  <p><strong>Button ID:</strong> <code>${escapeHtml(event.buttonId)}</code></p>`);
+  if (event.testId) lines.push(`  <p><strong>Test ID:</strong> <code>${escapeHtml(event.testId)}</code></p>`);
+  if (event.assertion) lines.push(`  <p><strong>Assertion:</strong> ${escapeHtml(event.assertion)}</p>`);
+  if (event.narration) lines.push(`  <p><strong>Narration:</strong> ${escapeHtml(event.narration)}</p>`);
+  if (event.screenshot) {
+    lines.push(`  <p><strong>Screenshot:</strong> <code>${escapeHtml(event.screenshot)}</code></p><img src="${escapeAttribute(event.screenshot)}" alt="Screenshot for ${escapeAttribute(event.label ?? event.id)}" />`);
+  }
+  lines.push('</article>');
+
+  return lines.join('\n');
 }
 
 function escapeHtml(value) {

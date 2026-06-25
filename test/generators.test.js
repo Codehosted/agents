@@ -14,21 +14,25 @@ const flow = {
     { id: 'step-03', type: 'fill', route: '/', label: 'Demo email', selector: '[data-testid="demo-email"]', testId: 'demo-email', value: 'george@example.com', screenshot: 'screenshots/03-fill-demo-email.png' },
     { id: 'step-04', type: 'assert', route: '/', label: 'Demo ready', selector: '#demo-ready', assertion: 'element is visible', screenshot: 'screenshots/04-assert-demo-ready.png' }
   ],
-  artifacts: { video: 'playback.webm' }
+  artifacts: { video: 'playback.mp4' }
 };
 
 test('generators include selectors screenshots and video artifacts', () => {
   const mermaid = generateMermaid(flow);
   const playwrightScript = generatePlaywrightScript(flow);
-  const recorderCommand = buildRecorderCommand({ scriptPath: 'artifacts/playwright.spec.js', outputDir: 'artifacts/recording', videoPath: 'artifacts/playback.webm' });
+  const recorderCommand = buildRecorderCommand({ scriptPath: 'artifacts/playwright.spec.js', outputDir: 'artifacts/recording', videoPath: 'artifacts/playback.mp4' });
   const events = createTimelineEvents(flow);
-  const timelineHtml = generateTimelineHtml(flow, { events, videoPath: 'playback.webm' });
+  const timelineHtml = generateTimelineHtml(flow, { events, videoPath: 'playback.mp4' });
 
   assert.match(mermaid, /step-02\["CLICK: Pricing\\n#pricing-link"\]/);
-  assert.match(mermaid, /playback\.webm/);
+  assert.match(mermaid, /playback\.mp4/);
   assert.match(playwrightScript, /test\.use\(\{ video: 'on' \}\);/);
   assert.match(playwrightScript, /PLAYWRIGHT_VIDEO_PATH/);
   assert.match(playwrightScript, /video\.saveAs\(process\.env\.PLAYWRIGHT_VIDEO_PATH\)/);
+  assert.match(playwrightScript, /FFMPEG_PATH/);
+  assert.match(playwrightScript, /requestedVideoPath\.toLowerCase\(\)\.endsWith\('\.mp4'\)/);
+  assert.match(playwrightScript, /video\.saveAs\(sourceVideoPath\)/);
+  assert.match(playwrightScript, /libx264/);
   assert.match(playwrightScript, /await page\.locator\('#pricing-link'\)\.click\(\);/);
   assert.match(playwrightScript, /await page\.locator\('\[data-testid="demo-email"\]'\)\.fill\('george@example.com'\);/);
   assert.match(playwrightScript, /screenshots\/03-fill-demo-email\.png/);
@@ -38,13 +42,29 @@ test('generators include selectors screenshots and video artifacts', () => {
     command: 'npx',
     cwd: 'artifacts',
     args: ['playwright', 'test', 'playwright.spec.js', '--output=recording', '--reporter=line'],
-    env: { PLAYWRIGHT_VIDEO_PATH: 'playback.webm' },
-    videoPath: 'artifacts/playback.webm'
+    env: { PLAYWRIGHT_VIDEO_PATH: 'playback.mp4' },
+    videoPath: 'artifacts/playback.mp4'
   });
   assert.equal(events[1].selector, '#pricing-link');
-  assert.match(timelineHtml, /<video[^>]+src="playback\.webm"/);
+  assert.match(timelineHtml, /<video[^>]+src="playback\.mp4"/);
   assert.match(timelineHtml, /#pricing-link/);
   assert.match(timelineHtml, /screenshots\/02-click-pricing-link\.png/);
+});
+
+test('generateTimelineHtml omits trailing whitespace-only lines', () => {
+  const timelineHtml = generateTimelineHtml({
+    name: 'minimal timeline',
+    baseUrl: 'http://localhost:4173',
+    steps: [
+      { id: 'step-01', type: 'visit', route: '/', label: 'Home', assertion: 'title contains "Home"' }
+    ],
+    artifacts: { video: 'playback.webm' }
+  });
+
+  assert.equal(
+    timelineHtml.split('\n').filter((line) => /\s+$/.test(line)).length,
+    0
+  );
 });
 
 test('generatePlaywrightScript escapes slashes in slash-delimited title regexes', () => {

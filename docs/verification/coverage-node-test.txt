@@ -6,57 +6,62 @@ TAP version 13
 # Subtest: CLI plan writes flow diagram script timeline and recorder command artifacts
 ok 1 - CLI plan writes flow diagram script timeline and recorder command artifacts
   ---
-  duration_ms: 124.597129
+  duration_ms: 117.564385
   ...
 # Subtest: createFlow maps story instructions to selector-rich actions and assertions
 ok 2 - createFlow maps story instructions to selector-rich actions and assertions
   ---
-  duration_ms: 9.455927
+  duration_ms: 10.695935
   ...
 # Subtest: createFlow keeps dotted fill values intact from narrated stories
 ok 3 - createFlow keeps dotted fill values intact from narrated stories
   ---
-  duration_ms: 0.742537
+  duration_ms: 0.937346
   ...
 # Subtest: createFlow prefers the home route for the initial visit when static files sort differently
 ok 4 - createFlow prefers the home route for the initial visit when static files sort differently
   ---
-  duration_ms: 0.758983
+  duration_ms: 0.792394
   ...
 # Subtest: generators include selectors screenshots and video artifacts
 ok 5 - generators include selectors screenshots and video artifacts
   ---
-  duration_ms: 7.526201
+  duration_ms: 6.319877
+  ...
+# Subtest: generateTimelineHtml omits trailing whitespace-only lines
+ok 6 - generateTimelineHtml omits trailing whitespace-only lines
+  ---
+  duration_ms: 0.718147
   ...
 # Subtest: generatePlaywrightScript escapes slashes in slash-delimited title regexes
-ok 6 - generatePlaywrightScript escapes slashes in slash-delimited title regexes
+ok 7 - generatePlaywrightScript escapes slashes in slash-delimited title regexes
   ---
-  duration_ms: 0.688483
+  duration_ms: 0.706951
   ...
 # Subtest: generatePlaywrightScript adds visible recorder step overlays and dwell timing
-ok 7 - generatePlaywrightScript adds visible recorder step overlays and dwell timing
+ok 8 - generatePlaywrightScript adds visible recorder step overlays and dwell timing
   ---
-  duration_ms: 0.471844
+  duration_ms: 0.422984
   ...
 # Subtest: recorder command and notes name the separate video recorder process
-ok 8 - recorder command and notes name the separate video recorder process
+ok 9 - recorder command and notes name the separate video recorder process
   ---
-  duration_ms: 7.561047
+  duration_ms: 6.083321
   ...
 # Subtest: parseHtmlPage discovers titled page elements with stable selectors
-ok 9 - parseHtmlPage discovers titled page elements with stable selectors
+ok 10 - parseHtmlPage discovers titled page elements with stable selectors
   ---
-  duration_ms: 8.974724
+  duration_ms: 8.685179
   ...
-1..9
-# tests 9
+1..10
+# tests 10
 # suites 0
-# pass 9
+# pass 10
 # fail 0
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 258.349458
+# duration_ms 252.65703
 # start of coverage report
 # -------------------------------------------------------------------------------------------------------------
 # file                        | line % | branch % | funcs % | uncovered lines
@@ -68,13 +73,13 @@ ok 9 - parseHtmlPage discovers titled page elements with stable selectors
 # src/playwright-generator.js | 100.00 |    66.67 |  100.00 |
 # src/recorder.js             | 100.00 |    57.14 |  100.00 |
 # src/static-parser.js        |  97.33 |    64.15 |  100.00 | 105 112-114
-# src/timeline.js             | 100.00 |    60.00 |  100.00 |
+# src/timeline.js             | 100.00 |    61.90 |  100.00 |
 # test/cli.test.js            | 100.00 |   100.00 |  100.00 |
 # test/flow-model.test.js     | 100.00 |   100.00 |  100.00 |
 # test/generators.test.js     | 100.00 |   100.00 |  100.00 |
 # test/recorder.test.js       | 100.00 |   100.00 |  100.00 |
 # test/static-parser.test.js  | 100.00 |   100.00 |  100.00 |
 # -------------------------------------------------------------------------------------------------------------
-# all files                   |  95.05 |    70.18 |   92.47 |
+# all files                   |  95.32 |    70.83 |   92.63 |
 # -------------------------------------------------------------------------------------------------------------
 # end of coverage report

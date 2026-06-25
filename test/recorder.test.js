@@ -6,7 +6,7 @@ test('recorder command and notes name the separate video recorder process', () =
   const commandSpec = buildRecorderCommand({
     scriptPath: 'docs/verification/sample-run/playwright.spec.js',
     outputDir: 'docs/verification/sample-run/recording',
-    videoPath: 'docs/verification/sample-run/playback.webm'
+    videoPath: 'docs/verification/sample-run/playback.mp4'
   });
 
   const notes = recorderNotes(commandSpec);
@@ -21,10 +21,11 @@ test('recorder command and notes name the separate video recorder process', () =
       '--output=recording',
       '--reporter=line'
     ],
-    env: { PLAYWRIGHT_VIDEO_PATH: 'playback.webm' },
-    videoPath: 'docs/verification/sample-run/playback.webm'
+    env: { PLAYWRIGHT_VIDEO_PATH: 'playback.mp4' },
+    videoPath: 'docs/verification/sample-run/playback.mp4'
   });
   assert.match(notes, /separate process/i);
-  assert.match(notes, /docs\/verification\/sample-run\/playback\.webm/);
+  assert.match(notes, /docs\/verification\/sample-run\/playback\.mp4/);
+  assert.match(notes, /FFMPEG_PATH/);
   assert.match(notes, /open-source screen recorder/);
 });

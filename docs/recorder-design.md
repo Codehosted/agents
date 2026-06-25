@@ -29,6 +29,7 @@ Static parsing is faster than immediately driving a headless browser. The tool s
 agents-recorder plan --site ./out --story stories/popz.md --out artifacts/popz-flow
 agents-recorder generate --flow artifacts/popz-flow/flow.json --out artifacts/popz-flow/playwright.spec.ts
 agents-recorder record --script artifacts/popz-flow/playwright.spec.ts --video artifacts/popz-flow/playback.webm
+# Pass a .mp4 --video path when you want ffmpeg/FFMPEG_PATH transcoding from Playwright's native WebM.
 ```
 
 ## Output artifacts
@@ -38,7 +39,7 @@ agents-recorder record --script artifacts/popz-flow/playwright.spec.ts --video a
 - `playwright.spec.ts`
 - `timeline.html`
 - `screenshots/*.png`
-- `playback.webm`
+- `playback.webm` (default native Playwright output) or `playback.mp4` (optional ffmpeg-transcoded copy)
 
 ## Acceptance criteria
 
