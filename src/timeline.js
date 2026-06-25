@@ -14,7 +14,7 @@ export function createTimelineEvents(flow) {
   }));
 }
 
-export function generateTimelineHtml(flow, { events = createTimelineEvents(flow), videoPath = flow.artifacts?.video ?? 'playback.webm' } = {}) {
+export function generateTimelineHtml(flow, { events = createTimelineEvents(flow), videoPath = flow.artifacts?.video ?? 'playback.mp4' } = {}) {
   return `<!doctype html>
 <html lang="en">
 <head>

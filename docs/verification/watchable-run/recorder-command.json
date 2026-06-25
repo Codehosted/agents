@@ -8,8 +8,8 @@
     "--reporter=line"
   ],
   "env": {
-    "PLAYWRIGHT_VIDEO_PATH": "playback.webm"
+    "PLAYWRIGHT_VIDEO_PATH": "playback.mp4"
   },
-  "videoPath": "docs/verification/watchable-run/playback.webm",
+  "videoPath": "docs/verification/watchable-run/playback.mp4",
   "cwd": "docs/verification/watchable-run"
 }

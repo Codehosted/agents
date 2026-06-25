@@ -1,6 +1,6 @@
 import path from 'node:path';
 
-export function buildRecorderCommand({ scriptPath, outputDir = 'artifacts/recording', videoPath = 'artifacts/playback.webm' }) {
+export function buildRecorderCommand({ scriptPath, outputDir = 'artifacts/recording', videoPath = 'artifacts/playback.mp4' }) {
   const cwd = path.dirname(scriptPath);
   const commandSpec = {
     command: 'npx',

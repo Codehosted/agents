@@ -56,7 +56,7 @@ async function reportCommand(args) {
   const flowPath = required(args, 'flow');
   const outputPath = required(args, 'out');
   const flow = JSON.parse(await readFile(flowPath, 'utf8'));
-  const videoPath = args.video ?? flow.artifacts?.video ?? 'playback.webm';
+  const videoPath = args.video ?? flow.artifacts?.video ?? 'playback.mp4';
   await mkdir(path.dirname(outputPath), { recursive: true });
   await writeFile(outputPath, generateTimelineHtml(flow, { events: createTimelineEvents(flow), videoPath }));
   console.log(`Wrote timeline report to ${outputPath}`);
@@ -65,7 +65,7 @@ async function reportCommand(args) {
 async function recordCommand(args) {
   const scriptPath = required(args, 'script');
   const outputDir = args.out ?? 'artifacts/recording';
-  const videoPath = args.video ?? 'artifacts/playback.webm';
+  const videoPath = args.video ?? 'artifacts/playback.mp4';
   const commandSpec = buildRecorderCommand({ scriptPath, outputDir, videoPath });
   console.log(JSON.stringify({ ...commandSpec, notes: recorderNotes(commandSpec) }, null, 2));
 }
@@ -116,8 +116,8 @@ function printHelp() {
 Usage:
   agents-recorder plan --site ./out --story ./stories/demo.md --out ./artifacts/demo --base-url http://localhost:4173
   agents-recorder generate --flow ./artifacts/demo/flow.json --out ./artifacts/demo/playwright.spec.js
-  agents-recorder report --flow ./artifacts/demo/flow.json --out ./artifacts/demo/timeline.html --video playback.webm
-  agents-recorder record --script ./artifacts/demo/playwright.spec.js --out ./artifacts/demo/recording --video ./artifacts/demo/playback.webm
+  agents-recorder report --flow ./artifacts/demo/flow.json --out ./artifacts/demo/timeline.html --video playback.mp4
+  agents-recorder record --script ./artifacts/demo/playwright.spec.js --out ./artifacts/demo/recording --video ./artifacts/demo/playback.mp4
 `);
 }
 

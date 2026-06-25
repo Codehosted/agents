@@ -37,7 +37,7 @@ test('CLI plan writes flow diagram script timeline and recorder command artifact
     assert.match(script, /moveRecorderMouseTo\(page, '#pricing-link'\)/);
     assert.match(script, /focusRecorderTarget\(page, '#pricing-link'\)/);
     assert.match(script, /clickRecorderTarget\(page, '#pricing-link'\)/);
-    assert.match(timeline, /playback\.webm/);
+    assert.match(timeline, /playback\.mp4/);
     assert.equal(recorder.command, 'npx');
   } finally {
     await rm(outputDir, { recursive: true, force: true });

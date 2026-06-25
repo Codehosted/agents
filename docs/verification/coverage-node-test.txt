@@ -6,62 +6,62 @@ TAP version 13
 # Subtest: CLI plan writes flow diagram script timeline and recorder command artifacts
 ok 1 - CLI plan writes flow diagram script timeline and recorder command artifacts
   ---
-  duration_ms: 129.954503
+  duration_ms: 144.858567
   ...
 # Subtest: createFlow maps story instructions to selector-rich actions and assertions
 ok 2 - createFlow maps story instructions to selector-rich actions and assertions
   ---
-  duration_ms: 10.702843
+  duration_ms: 10.955503
   ...
 # Subtest: createFlow keeps dotted fill values intact from narrated stories
 ok 3 - createFlow keeps dotted fill values intact from narrated stories
   ---
-  duration_ms: 0.921648
+  duration_ms: 0.77948
   ...
 # Subtest: createFlow prefers the home route for the initial visit when static files sort differently
 ok 4 - createFlow prefers the home route for the initial visit when static files sort differently
   ---
-  duration_ms: 0.783404
+  duration_ms: 0.63564
   ...
 # Subtest: generators include selectors screenshots and video artifacts
 ok 5 - generators include selectors screenshots and video artifacts
   ---
-  duration_ms: 7.807074
+  duration_ms: 7.640497
   ...
 # Subtest: generateTimelineHtml omits trailing whitespace-only lines
 ok 6 - generateTimelineHtml omits trailing whitespace-only lines
   ---
-  duration_ms: 0.686578
+  duration_ms: 0.704174
   ...
 # Subtest: generatePlaywrightScript escapes slashes in slash-delimited title regexes
 ok 7 - generatePlaywrightScript escapes slashes in slash-delimited title regexes
   ---
-  duration_ms: 0.679782
+  duration_ms: 0.670789
   ...
 # Subtest: generatePlaywrightScript adds visible recorder step overlays and dwell timing
 ok 8 - generatePlaywrightScript adds visible recorder step overlays and dwell timing
   ---
-  duration_ms: 0.487068
+  duration_ms: 0.823097
   ...
 # Subtest: generatePlaywrightScript emits smooth recorder cursor movement controls
 ok 9 - generatePlaywrightScript emits smooth recorder cursor movement controls
   ---
-  duration_ms: 0.507389
+  duration_ms: 0.544171
   ...
 # Subtest: generatePlaywrightScript focuses targets before paced interactions
 ok 10 - generatePlaywrightScript focuses targets before paced interactions
   ---
-  duration_ms: 0.473155
+  duration_ms: 0.477549
   ...
 # Subtest: recorder command and notes name the separate video recorder process
 ok 11 - recorder command and notes name the separate video recorder process
   ---
-  duration_ms: 5.652949
+  duration_ms: 4.660401
   ...
 # Subtest: parseHtmlPage discovers titled page elements with stable selectors
 ok 12 - parseHtmlPage discovers titled page elements with stable selectors
   ---
-  duration_ms: 8.685997
+  duration_ms: 8.805786
   ...
 1..12
 # tests 12
@@ -71,7 +71,7 @@ ok 12 - parseHtmlPage discovers titled page elements with stable selectors
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 280.184983
+# duration_ms 294.787013
 # start of coverage report
 # -------------------------------------------------------------------------------------------------------------
 # file                        | line % | branch % | funcs % | uncovered lines

@@ -60,7 +60,7 @@ test('generateTimelineHtml omits trailing whitespace-only lines', () => {
     steps: [
       { id: 'step-01', type: 'visit', route: '/', label: 'Home', assertion: 'title contains "Home"' }
     ],
-    artifacts: { video: 'playback.webm' }
+    artifacts: { video: 'playback.mp4' }
   });
 
   assert.equal(

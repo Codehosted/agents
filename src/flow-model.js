@@ -24,7 +24,7 @@ export function createFlow({ name = 'recorder flow', site, story = '', baseUrl =
       flowDiagram: 'flow.mmd',
       playwrightScript: 'playwright.spec.js',
       timelineReport: 'timeline.html',
-      video: 'playback.webm'
+      video: 'playback.mp4'
     }
   };
 }
