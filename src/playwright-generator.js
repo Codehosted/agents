@@ -133,7 +133,10 @@ async function settleRecorderStep(page) {
 async function saveRequestedVideo(page) {
   const video = page.video();
   const requestedVideoPath = process.env.PLAYWRIGHT_VIDEO_PATH;
-  if (!requestedVideoPath || !video) return;
+  if (!requestedVideoPath) return;
+  if (!video) {
+    throw new Error("PLAYWRIGHT_VIDEO_PATH was set but Playwright did not expose a page video. Keep test.use({ video: 'on' }) enabled or use an external recorder.");
+  }
 
   await mkdir(path.dirname(requestedVideoPath), { recursive: true });
   await page.close();

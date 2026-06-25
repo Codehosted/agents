@@ -30,6 +30,7 @@ test('generators include selectors screenshots and video artifacts', () => {
   assert.match(playwrightScript, /PLAYWRIGHT_VIDEO_PATH/);
   assert.match(playwrightScript, /video\.saveAs\(process\.env\.PLAYWRIGHT_VIDEO_PATH\)/);
   assert.match(playwrightScript, /FFMPEG_PATH/);
+  assert.match(playwrightScript, /PLAYWRIGHT_VIDEO_PATH was set but Playwright did not expose a page video/);
   assert.match(playwrightScript, /requestedVideoPath\.toLowerCase\(\)\.endsWith\('\.mp4'\)/);
   assert.match(playwrightScript, /video\.saveAs\(sourceVideoPath\)/);
   assert.match(playwrightScript, /libx264/);
