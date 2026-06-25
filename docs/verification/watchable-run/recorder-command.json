@@ -1,0 +1,15 @@
+{
+  "command": "npx",
+  "args": [
+    "playwright",
+    "test",
+    "playwright.spec.js",
+    "--output=recording",
+    "--reporter=line"
+  ],
+  "env": {
+    "PLAYWRIGHT_VIDEO_PATH": "playback.mp4"
+  },
+  "videoPath": "docs/verification/watchable-run/playback.mp4",
+  "cwd": "docs/verification/watchable-run"
+}
