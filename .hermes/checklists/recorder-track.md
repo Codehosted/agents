@@ -34,8 +34,8 @@ Source of truth for the static-output-to-Playwright/video recorder project. A st
 - [x] 5. Tests with at least 90% code coverage
   - Evidence:
     - `test/static-parser.test.js`, `test/flow-model.test.js`, `test/generators.test.js`, `test/recorder.test.js`, and `test/cli.test.js` cover parser, flow model, script/diagram/report/recorder generators, recorder process command notes, and CLI planning.
-    - `npm test` => 6/6 tests passing.
-    - `docs/verification/coverage-node-test.txt` captured `npm run coverage` output: all files line coverage 94.41%, function coverage 93.10%, `src/recorder.js` line/function coverage 100%, 6/6 tests passing.
+    - `npm test` => 8/8 tests passing after adding PR-feedback regressions for home-route selection, artifact-relative screenshots, and slash-safe title regexes.
+    - `docs/verification/coverage-node-test.txt` captured `npm run coverage` output: all files line coverage 94.65%, function coverage 92.39%, `src/playwright-generator.js` and `src/recorder.js` line/function coverage 100%, 8/8 tests passing.
 - [x] 6. Push to GitHub in a new Codehosted/agents project
   - Evidence:
     - Created public GitHub repo: https://github.com/Codehosted/agents (`gh repo create Codehosted/agents --public --description "Local-first static-output to Playwright recorder and timeline toolkit" --source=. --remote=origin`).

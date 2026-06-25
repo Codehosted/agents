@@ -6,53 +6,63 @@ TAP version 13
 # Subtest: CLI plan writes flow diagram script timeline and recorder command artifacts
 ok 1 - CLI plan writes flow diagram script timeline and recorder command artifacts
   ---
-  duration_ms: 123.429753
+  duration_ms: 120.061945
   ...
 # Subtest: createFlow maps story instructions to selector-rich actions and assertions
 ok 2 - createFlow maps story instructions to selector-rich actions and assertions
   ---
-  duration_ms: 10.566197
+  duration_ms: 9.182848
   ...
 # Subtest: createFlow keeps dotted fill values intact from narrated stories
 ok 3 - createFlow keeps dotted fill values intact from narrated stories
   ---
-  duration_ms: 0.908828
+  duration_ms: 0.727769
+  ...
+# Subtest: createFlow prefers the home route for the initial visit when static files sort differently
+ok 4 - createFlow prefers the home route for the initial visit when static files sort differently
+  ---
+  duration_ms: 0.64572
   ...
 # Subtest: generators include selectors screenshots and video artifacts
-ok 4 - generators include selectors screenshots and video artifacts
+ok 5 - generators include selectors screenshots and video artifacts
   ---
-  duration_ms: 6.295061
+  duration_ms: 7.187116
+  ...
+# Subtest: generatePlaywrightScript escapes slashes in slash-delimited title regexes
+ok 6 - generatePlaywrightScript escapes slashes in slash-delimited title regexes
+  ---
+  duration_ms: 0.66887
   ...
 # Subtest: recorder command and notes name the separate video recorder process
-ok 5 - recorder command and notes name the separate video recorder process
+ok 7 - recorder command and notes name the separate video recorder process
   ---
-  duration_ms: 5.480078
+  duration_ms: 4.565531
   ...
 # Subtest: parseHtmlPage discovers titled page elements with stable selectors
-ok 6 - parseHtmlPage discovers titled page elements with stable selectors
+ok 8 - parseHtmlPage discovers titled page elements with stable selectors
   ---
-  duration_ms: 7.025132
+  duration_ms: 8.694661
   ...
-1..6
-# tests 6
+1..8
+# tests 8
 # suites 0
-# pass 6
+# pass 8
 # fail 0
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 258.604568
+# duration_ms 253.637204
 # start of coverage report
 # -------------------------------------------------------------------------------------------------------------
 # file                        | line % | branch % | funcs % | uncovered lines
 # -------------------------------------------------------------------------------------------------------------
 # bin/agents-recorder.js      |  64.57 |    53.85 |   50.00 | 20-22 25-29 46-53 55-63 65-71 99 113-122 125-126
 # src/flow-diagram.js         | 100.00 |    53.85 |  100.00 |
-# src/flow-model.js           |  99.47 |    80.65 |   96.77 | 61
+# src/flow-model.js           |  99.49 |    79.10 |   94.12 | 68
 # src/index.js                | 100.00 |   100.00 |  100.00 |
-# src/playwright-generator.js | 100.00 |    61.11 |  100.00 |
+# src/playwright-generator.js | 100.00 |    63.16 |  100.00 |
 # src/recorder.js             | 100.00 |    57.14 |  100.00 |
-# src/static-parser.js        |  97.33 |    62.26 |  100.00 | 105 112-114
+# src/static-parser.js        |  97.33 |    64.15 |  100.00 | 105 112-114
 # src/timeline.js             | 100.00 |    60.00 |  100.00 |
 # test/cli.test.js            | 100.00 |   100.00 |  100.00 |
 # test/flow-model.test.js     | 100.00 |   100.00 |  100.00 |
@@ -60,6 +70,6 @@ ok 6 - parseHtmlPage discovers titled page elements with stable selectors
 # test/recorder.test.js       | 100.00 |   100.00 |  100.00 |
 # test/static-parser.test.js  | 100.00 |   100.00 |  100.00 |
 # -------------------------------------------------------------------------------------------------------------
-# all files                   |  94.41 |    69.08 |   93.10 |
+# all files                   |  94.65 |    69.77 |   92.39 |
 # -------------------------------------------------------------------------------------------------------------
 # end of coverage report

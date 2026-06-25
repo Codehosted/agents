@@ -51,3 +51,17 @@ test('createFlow keeps dotted fill values intact from narrated stories', () => {
 
   assert.equal(flow.steps.find((step) => step.type === 'fill').value, 'george@example.com');
 });
+
+test('createFlow prefers the home route for the initial visit when static files sort differently', () => {
+  const notFoundPage = parseHtmlPage('<h1>Not found</h1><button id="lost">Lost</button>', { route: '/404' });
+  const homePage = parseHtmlPage('<h1>Recorder landing</h1><button id="start-recorder-demo">Start recorder demo</button>', { route: '/' });
+
+  const flow = createFlow({
+    site: { pages: [notFoundPage, homePage] },
+    story: 'Open the landing page. Click start recorder demo.'
+  });
+
+  assert.equal(flow.steps[0].type, 'visit');
+  assert.equal(flow.steps[0].route, '/');
+  assert.equal(flow.steps[0].assertion, 'title contains "Recorder landing"');
+});

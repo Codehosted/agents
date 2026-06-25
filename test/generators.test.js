@@ -32,6 +32,8 @@ test('generators include selectors screenshots and video artifacts', () => {
   assert.match(playwrightScript, /await page\.locator\('#pricing-link'\)\.click\(\);/);
   assert.match(playwrightScript, /await page\.locator\('\[data-testid="demo-email"\]'\)\.fill\('george@example.com'\);/);
   assert.match(playwrightScript, /screenshots\/03-fill-demo-email\.png/);
+  assert.match(playwrightScript, /fileURLToPath\(import\.meta\.url\)/);
+  assert.match(playwrightScript, /path\.resolve\(artifactDir, screenshotPath\)/);
   assert.deepEqual(recorderCommand, {
     command: 'npx',
     cwd: 'artifacts',
@@ -43,4 +45,17 @@ test('generators include selectors screenshots and video artifacts', () => {
   assert.match(timelineHtml, /<video[^>]+src="playback\.webm"/);
   assert.match(timelineHtml, /#pricing-link/);
   assert.match(timelineHtml, /screenshots\/02-click-pricing-link\.png/);
+});
+
+test('generatePlaywrightScript escapes slashes in slash-delimited title regexes', () => {
+  const script = generatePlaywrightScript({
+    name: 'pricing title',
+    baseUrl: 'http://localhost:4173',
+    steps: [
+      { id: 'step-01', type: 'visit', route: '/pricing', label: 'Visit pricing', assertion: 'title contains "Plans / Pricing"' }
+    ]
+  });
+
+  assert.ok(script.includes('await expect(page).toHaveTitle(/Plans \\/ Pricing/);'));
+  assert.doesNotMatch(script, /toHaveTitle\(\/Plans \/ Pricing\/\)/);
 });

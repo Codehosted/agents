@@ -3,10 +3,12 @@ export function generatePlaywrightScript(flow) {
   const lines = [
     "import { mkdir } from 'node:fs/promises';",
     "import path from 'node:path';",
+    "import { fileURLToPath } from 'node:url';",
     "import { test, expect } from '@playwright/test';",
     '',
     "test.use({ video: 'on' });",
     '',
+    'const artifactDir = path.dirname(fileURLToPath(import.meta.url));',
     `const baseUrl = ${quote(baseUrl)};`,
     '',
     `test(${quote(flow.name ?? 'generated recorder flow')}, async ({ page }) => {`
@@ -53,8 +55,9 @@ function scriptLinesForStep(step) {
 
 function helperSource() {
   return `async function saveStepScreenshot(page, screenshotPath) {
-  await mkdir(path.dirname(screenshotPath), { recursive: true });
-  await page.screenshot({ path: screenshotPath, fullPage: true });
+  const resolvedPath = path.resolve(artifactDir, screenshotPath);
+  await mkdir(path.dirname(resolvedPath), { recursive: true });
+  await page.screenshot({ path: resolvedPath, fullPage: true });
 }
 
 async function saveRequestedVideo(page) {
@@ -73,5 +76,5 @@ function quote(value) {
 }
 
 function escapeRegex(value) {
-  return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return String(value).replace(/[.*+?^${}()|[\]\\/]/g, '\\$&');
 }

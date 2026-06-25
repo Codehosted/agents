@@ -1,7 +1,7 @@
 export function createFlow({ name = 'recorder flow', site, story = '', baseUrl = 'http://localhost:3000' }) {
   const pages = site?.pages ?? [];
-  const primaryPage = pages[0] ?? { route: '/', title: 'Untitled page', elements: [] };
-  const matchedSteps = matchStorySteps(story, pages);
+  const primaryPage = primaryPageFor(pages);
+  const matchedSteps = matchStorySteps(story, pages, primaryPage.route);
   const steps = [visitStep(primaryPage), ...matchedSteps].map((step, index) => ({
     id: `step-${String(index + 1).padStart(2, '0')}`,
     screenshot: screenshotFor(index + 1, step),
@@ -29,6 +29,13 @@ export function createFlow({ name = 'recorder flow', site, story = '', baseUrl =
   };
 }
 
+function primaryPageFor(pages) {
+  return pages.find((page) => page.route === '/' || page.route === '/index') ??
+    pages.find((page) => /\b(home|landing|index)\b/i.test(`${page.title ?? ''} ${page.filePath ?? ''} ${page.route ?? ''}`)) ??
+    pages[0] ??
+    { route: '/', title: 'Untitled page', elements: [] };
+}
+
 function visitStep(page) {
   return {
     type: 'visit',
@@ -39,7 +46,7 @@ function visitStep(page) {
   };
 }
 
-function matchStorySteps(story, pages) {
+function matchStorySteps(story, pages, fallbackRoute) {
   const elements = pages.flatMap((page) => page.elements.map((element) => ({ ...element, route: page.route })));
   const sentences = splitStory(story);
 
@@ -55,7 +62,7 @@ function matchStorySteps(story, pages) {
       return element ? [actionStep('click', sentence, element)] : [];
     }
     if (isAssertSentence(lower)) {
-      const element = bestElementFor(sentence, elements, undefined, 2) ?? assertionFallback(sentence, pages[0]?.route ?? '/');
+      const element = bestElementFor(sentence, elements, undefined, 2) ?? assertionFallback(sentence, fallbackRoute ?? '/');
       return element ? [assertStep(sentence, element)] : [];
     }
     return [];

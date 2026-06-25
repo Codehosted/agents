@@ -1,9 +1,11 @@
 import { mkdir } from 'node:fs/promises';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { test, expect } from '@playwright/test';
 
 test.use({ video: 'on' });
 
+const artifactDir = path.dirname(fileURLToPath(import.meta.url));
 const baseUrl = 'http://localhost:4173';
 
 test('story', async ({ page }) => {
@@ -32,8 +34,9 @@ test('story', async ({ page }) => {
 });
 
 async function saveStepScreenshot(page, screenshotPath) {
-  await mkdir(path.dirname(screenshotPath), { recursive: true });
-  await page.screenshot({ path: screenshotPath, fullPage: true });
+  const resolvedPath = path.resolve(artifactDir, screenshotPath);
+  await mkdir(path.dirname(resolvedPath), { recursive: true });
+  await page.screenshot({ path: resolvedPath, fullPage: true });
 }
 
 async function saveRequestedVideo(page) {
