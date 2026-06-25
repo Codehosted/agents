@@ -34,8 +34,13 @@ Source of truth for the static-output-to-Playwright/video recorder project. A st
     - `test/static-parser.test.js`, `test/flow-model.test.js`, `test/generators.test.js`, and `test/cli.test.js` cover parser, flow model, script/diagram/report/recorder generators, and CLI planning.
     - `npm test` => 5/5 tests passing.
     - `docs/verification/coverage-node-test.txt` captured `npm run coverage` output: all files line coverage 93.06%, function coverage 91.67%, 5/5 tests passing.
-- [ ] 6. Push to GitHub in a new Codehosted/agents project
+- [x] 6. Push to GitHub in a new Codehosted/agents project
   - Evidence:
+    - Created public GitHub repo: https://github.com/Codehosted/agents (`gh repo create Codehosted/agents --public --description "Local-first static-output to Playwright recorder and timeline toolkit" --source=. --remote=origin`).
+    - Pushed seed `main` branch and implementation branch `feat/recorder-scaffold` with `git push -u origin main` and `git push -u origin feat/recorder-scaffold`.
+    - Opened draft PR: https://github.com/Codehosted/agents/pull/1 (`feat: scaffold recorder automation toolkit`) from `feat/recorder-scaffold` to `main`.
+    - `gh pr view --json number,url,title,state,isDraft,headRefName,baseRefName` confirmed PR #1 is open and draft.
+    - `gh pr checks 1 --watch --interval 10` reported no checks configured on the branch.
 
 ## Product acceptance notes
 
