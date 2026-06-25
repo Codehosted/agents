@@ -34,8 +34,9 @@ test('generators include selectors screenshots and video artifacts', () => {
   assert.match(playwrightScript, /screenshots\/03-fill-demo-email\.png/);
   assert.deepEqual(recorderCommand, {
     command: 'npx',
-    args: ['playwright', 'test', 'artifacts/playwright.spec.js', '--output=artifacts/recording'],
-    env: { PLAYWRIGHT_VIDEO_PATH: 'artifacts/playback.webm' },
+    cwd: 'artifacts',
+    args: ['playwright', 'test', 'playwright.spec.js', '--output=recording', '--reporter=line'],
+    env: { PLAYWRIGHT_VIDEO_PATH: 'playback.webm' },
     videoPath: 'artifacts/playback.webm'
   });
   assert.equal(events[1].selector, '#pricing-link');

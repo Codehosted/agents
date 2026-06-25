@@ -13,13 +13,15 @@ test('recorder command and notes name the separate video recorder process', () =
 
   assert.deepEqual(commandSpec, {
     command: 'npx',
+    cwd: 'docs/verification/sample-run',
     args: [
       'playwright',
       'test',
-      'docs/verification/sample-run/playwright.spec.js',
-      '--output=docs/verification/sample-run/recording'
+      'playwright.spec.js',
+      '--output=recording',
+      '--reporter=line'
     ],
-    env: { PLAYWRIGHT_VIDEO_PATH: 'docs/verification/sample-run/playback.webm' },
+    env: { PLAYWRIGHT_VIDEO_PATH: 'playback.webm' },
     videoPath: 'docs/verification/sample-run/playback.webm'
   });
   assert.match(notes, /separate process/i);

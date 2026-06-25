@@ -6,32 +6,32 @@ TAP version 13
 # Subtest: CLI plan writes flow diagram script timeline and recorder command artifacts
 ok 1 - CLI plan writes flow diagram script timeline and recorder command artifacts
   ---
-  duration_ms: 127.333799
+  duration_ms: 123.429753
   ...
 # Subtest: createFlow maps story instructions to selector-rich actions and assertions
 ok 2 - createFlow maps story instructions to selector-rich actions and assertions
   ---
-  duration_ms: 11.511463
+  duration_ms: 10.566197
   ...
 # Subtest: createFlow keeps dotted fill values intact from narrated stories
 ok 3 - createFlow keeps dotted fill values intact from narrated stories
   ---
-  duration_ms: 0.942312
+  duration_ms: 0.908828
   ...
 # Subtest: generators include selectors screenshots and video artifacts
 ok 4 - generators include selectors screenshots and video artifacts
   ---
-  duration_ms: 6.688277
+  duration_ms: 6.295061
   ...
 # Subtest: recorder command and notes name the separate video recorder process
 ok 5 - recorder command and notes name the separate video recorder process
   ---
-  duration_ms: 5.078819
+  duration_ms: 5.480078
   ...
 # Subtest: parseHtmlPage discovers titled page elements with stable selectors
 ok 6 - parseHtmlPage discovers titled page elements with stable selectors
   ---
-  duration_ms: 8.237707
+  duration_ms: 7.025132
   ...
 1..6
 # tests 6
@@ -41,7 +41,7 @@ ok 6 - parseHtmlPage discovers titled page elements with stable selectors
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 262.385523
+# duration_ms 258.604568
 # start of coverage report
 # -------------------------------------------------------------------------------------------------------------
 # file                        | line % | branch % | funcs % | uncovered lines
@@ -51,7 +51,7 @@ ok 6 - parseHtmlPage discovers titled page elements with stable selectors
 # src/flow-model.js           |  99.47 |    80.65 |   96.77 | 61
 # src/index.js                | 100.00 |   100.00 |  100.00 |
 # src/playwright-generator.js | 100.00 |    61.11 |  100.00 |
-# src/recorder.js             | 100.00 |   100.00 |  100.00 |
+# src/recorder.js             | 100.00 |    57.14 |  100.00 |
 # src/static-parser.js        |  97.33 |    62.26 |  100.00 | 105 112-114
 # src/timeline.js             | 100.00 |    60.00 |  100.00 |
 # test/cli.test.js            | 100.00 |   100.00 |  100.00 |
@@ -60,6 +60,6 @@ ok 6 - parseHtmlPage discovers titled page elements with stable selectors
 # test/recorder.test.js       | 100.00 |   100.00 |  100.00 |
 # test/static-parser.test.js  | 100.00 |   100.00 |  100.00 |
 # -------------------------------------------------------------------------------------------------------------
-# all files                   |  94.27 |    69.95 |   93.02 |
+# all files                   |  94.41 |    69.08 |   93.10 |
 # -------------------------------------------------------------------------------------------------------------
 # end of coverage report
