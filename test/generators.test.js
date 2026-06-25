@@ -26,12 +26,15 @@ test('generators include selectors screenshots and video artifacts', () => {
 
   assert.match(mermaid, /step-02\["CLICK: Pricing\\n#pricing-link"\]/);
   assert.match(mermaid, /playback\.webm/);
+  assert.match(playwrightScript, /test\.use\(\{ video: 'on' \}\);/);
+  assert.match(playwrightScript, /PLAYWRIGHT_VIDEO_PATH/);
+  assert.match(playwrightScript, /video\.saveAs\(process\.env\.PLAYWRIGHT_VIDEO_PATH\)/);
   assert.match(playwrightScript, /await page\.locator\('#pricing-link'\)\.click\(\);/);
   assert.match(playwrightScript, /await page\.locator\('\[data-testid="demo-email"\]'\)\.fill\('george@example.com'\);/);
   assert.match(playwrightScript, /screenshots\/03-fill-demo-email\.png/);
   assert.deepEqual(recorderCommand, {
     command: 'npx',
-    args: ['playwright', 'test', 'artifacts/playwright.spec.js', '--project=chromium', '--output=artifacts/recording'],
+    args: ['playwright', 'test', 'artifacts/playwright.spec.js', '--output=artifacts/recording'],
     env: { PLAYWRIGHT_VIDEO_PATH: 'artifacts/playback.webm' },
     videoPath: 'artifacts/playback.webm'
   });

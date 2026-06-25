@@ -4,7 +4,6 @@
     "playwright",
     "test",
     "docs/verification/sample-run/playwright.spec.js",
-    "--project=chromium",
     "--output=docs/verification/sample-run/recording"
   ],
   "env": {

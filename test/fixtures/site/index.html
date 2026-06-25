@@ -3,7 +3,10 @@
 <head><title>Recorder fixture</title></head>
 <body>
   <h1>Recorder fixture</h1>
-  <a id="pricing-link" href="/pricing">Pricing</a>
+  <a id="pricing-link" href="#pricing">Pricing</a>
+  <section id="pricing" aria-label="Pricing details">
+    <p>Pricing details stay on this page so the recorder can continue the demo flow.</p>
+  </section>
   <input data-testid="demo-email" aria-label="Demo email" />
   <button id="start-recorder-demo">Start recorder demo</button>
   <section id="demo-ready">Demo ready</section>

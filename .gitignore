@@ -3,7 +3,10 @@ coverage/
 .nyc_output/
 .DS_Store
 .env
+.env.*
 *.log
 .tmp/
 artifacts/
 .hermes/prompts/
+playwright-report/
+test-results/

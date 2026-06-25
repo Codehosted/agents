@@ -15,7 +15,7 @@ The project is intentionally open-source-friendly: it uses Node.js built-ins for
   - `playwright.spec.js`
   - `timeline.html`
   - `recorder-command.json`
-- Keeps recording separate from planning by producing a command spec for a Playwright/Chromium recorder process.
+- Keeps recording separate from planning by producing a command spec for a Playwright recorder process that writes `PLAYWRIGHT_VIDEO_PATH`.
 
 ## Install / run locally
 
@@ -85,4 +85,4 @@ npm test
 npm run coverage
 ```
 
-The current scaffold uses `node:test` and no runtime npm dependencies. Future implementation can add Playwright as an optional/dev dependency when visual verification and recording gates require actual browser playback.
+The current scaffold uses `node:test` for unit coverage and `@playwright/test` as a dev-only dependency for generated browser playback/video verification.

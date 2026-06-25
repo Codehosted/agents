@@ -13,7 +13,7 @@
           "kind": "link",
           "label": "Pricing",
           "selector": "#pricing-link",
-          "href": "/pricing",
+          "href": "#pricing",
           "route": "/",
           "screenshot": "screenshots/home-a-1.png"
         },

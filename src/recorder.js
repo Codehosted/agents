@@ -1,7 +1,7 @@
 export function buildRecorderCommand({ scriptPath, outputDir = 'artifacts/recording', videoPath = 'artifacts/playback.webm' }) {
   return {
     command: 'npx',
-    args: ['playwright', 'test', scriptPath, '--project=chromium', `--output=${outputDir}`],
+    args: ['playwright', 'test', scriptPath, `--output=${outputDir}`],
     env: { PLAYWRIGHT_VIDEO_PATH: videoPath },
     videoPath
   };

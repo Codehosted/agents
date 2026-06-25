@@ -6,54 +6,60 @@ TAP version 13
 # Subtest: CLI plan writes flow diagram script timeline and recorder command artifacts
 ok 1 - CLI plan writes flow diagram script timeline and recorder command artifacts
   ---
-  duration_ms: 116.39207
+  duration_ms: 127.333799
   ...
 # Subtest: createFlow maps story instructions to selector-rich actions and assertions
 ok 2 - createFlow maps story instructions to selector-rich actions and assertions
   ---
-  duration_ms: 10.797276
+  duration_ms: 11.511463
   ...
 # Subtest: createFlow keeps dotted fill values intact from narrated stories
 ok 3 - createFlow keeps dotted fill values intact from narrated stories
   ---
-  duration_ms: 0.92608
+  duration_ms: 0.942312
   ...
 # Subtest: generators include selectors screenshots and video artifacts
 ok 4 - generators include selectors screenshots and video artifacts
   ---
-  duration_ms: 6.662872
+  duration_ms: 6.688277
+  ...
+# Subtest: recorder command and notes name the separate video recorder process
+ok 5 - recorder command and notes name the separate video recorder process
+  ---
+  duration_ms: 5.078819
   ...
 # Subtest: parseHtmlPage discovers titled page elements with stable selectors
-ok 5 - parseHtmlPage discovers titled page elements with stable selectors
+ok 6 - parseHtmlPage discovers titled page elements with stable selectors
   ---
-  duration_ms: 7.037617
+  duration_ms: 8.237707
   ...
-1..5
-# tests 5
+1..6
+# tests 6
 # suites 0
-# pass 5
+# pass 6
 # fail 0
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 234.544562
+# duration_ms 262.385523
 # start of coverage report
 # -------------------------------------------------------------------------------------------------------------
 # file                        | line % | branch % | funcs % | uncovered lines
 # -------------------------------------------------------------------------------------------------------------
 # bin/agents-recorder.js      |  64.57 |    53.85 |   50.00 | 20-22 25-29 46-53 55-63 65-71 99 113-122 125-126
-# src/flow-diagram.js         | 100.00 |    53.85 |  100.00 | 
+# src/flow-diagram.js         | 100.00 |    53.85 |  100.00 |
 # src/flow-model.js           |  99.47 |    80.65 |   96.77 | 61
-# src/index.js                | 100.00 |   100.00 |  100.00 | 
-# src/playwright-generator.js | 100.00 |    58.82 |  100.00 | 
-# src/recorder.js             |  58.82 |   100.00 |   50.00 | 11-17
+# src/index.js                | 100.00 |   100.00 |  100.00 |
+# src/playwright-generator.js | 100.00 |    61.11 |  100.00 |
+# src/recorder.js             | 100.00 |   100.00 |  100.00 |
 # src/static-parser.js        |  97.33 |    62.26 |  100.00 | 105 112-114
-# src/timeline.js             | 100.00 |    60.00 |  100.00 | 
-# test/cli.test.js            | 100.00 |   100.00 |  100.00 | 
-# test/flow-model.test.js     | 100.00 |   100.00 |  100.00 | 
-# test/generators.test.js     | 100.00 |   100.00 |  100.00 | 
-# test/static-parser.test.js  | 100.00 |   100.00 |  100.00 | 
+# src/timeline.js             | 100.00 |    60.00 |  100.00 |
+# test/cli.test.js            | 100.00 |   100.00 |  100.00 |
+# test/flow-model.test.js     | 100.00 |   100.00 |  100.00 |
+# test/generators.test.js     | 100.00 |   100.00 |  100.00 |
+# test/recorder.test.js       | 100.00 |   100.00 |  100.00 |
+# test/static-parser.test.js  | 100.00 |   100.00 |  100.00 |
 # -------------------------------------------------------------------------------------------------------------
-# all files                   |  93.06 |    69.35 |   91.67 |
+# all files                   |  94.27 |    69.95 |   93.02 |
 # -------------------------------------------------------------------------------------------------------------
 # end of coverage report
