@@ -51,6 +51,7 @@ Source of truth for the static-output-to-Playwright/video recorder project. A st
     - Opened draft PR: https://github.com/Codehosted/agents/pull/1 (`feat: scaffold recorder automation toolkit`) from `feat/recorder-scaffold` to `main`.
     - PR #1 has since been merged into `main`; `gh pr view 1 --json number,url,title,state,isDraft,headRefName,baseRefName,headRefOid,statusCheckRollup,mergeable` returned `state=MERGED`, `isDraft=false`, `headRefOid=6352ec7b8cd405556d0c97b9fae32416f2b86ce7`, and no configured status checks.
     - Current pushed `main` tip after merge is `846c34c` (`Merge pull request #1 from Codehosted/feat/recorder-scaffold`).
+    - Follow-up docs PR for this checklist status refresh: https://github.com/Codehosted/agents/pull/2 from `docs/recorder-merge-status` to `main` (draft, docs-only; no checks reported).
 
 ## Product acceptance notes
 
