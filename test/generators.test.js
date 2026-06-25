@@ -59,3 +59,12 @@ test('generatePlaywrightScript escapes slashes in slash-delimited title regexes'
   assert.ok(script.includes('await expect(page).toHaveTitle(/Plans \\/ Pricing/);'));
   assert.doesNotMatch(script, /toHaveTitle\(\/Plans \/ Pricing\/\)/);
 });
+
+test('generatePlaywrightScript adds visible recorder step overlays and dwell timing', () => {
+  const script = generatePlaywrightScript(flow);
+
+  assert.match(script, /AGENTS_RECORDER_STEP_DELAY_MS/);
+  assert.match(script, /await showRecorderStep\(page, 'step-02: CLICK Pricing', '#pricing-link'\);/);
+  assert.match(script, /data-agents-recorder-highlight/);
+  assert.match(script, /await page\.waitForTimeout\(recorderStepDelayMs\);/);
+});

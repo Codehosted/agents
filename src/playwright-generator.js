@@ -9,6 +9,7 @@ export function generatePlaywrightScript(flow) {
     "test.use({ video: 'on' });",
     '',
     'const artifactDir = path.dirname(fileURLToPath(import.meta.url));',
+    "const recorderStepDelayMs = Number(process.env.AGENTS_RECORDER_STEP_DELAY_MS ?? '900');",
     `const baseUrl = ${quote(baseUrl)};`,
     '',
     `test(${quote(flow.name ?? 'generated recorder flow')}, async ({ page }) => {`
@@ -23,7 +24,9 @@ export function generatePlaywrightScript(flow) {
 }
 
 function scriptLinesForStep(step) {
-  const lines = [`  // ${step.id}: ${step.type.toUpperCase()} ${step.label ?? step.route ?? ''}`];
+  const stepLabel = `${step.id}: ${step.type.toUpperCase()} ${step.label ?? step.route ?? ''}`.trim();
+  const selectorArg = step.selector ? `, ${quote(step.selector)}` : '';
+  const lines = [`  // ${stepLabel}`];
 
   if (step.type === 'visit') {
     lines.push(`  await page.goto(new URL(${quote(step.route ?? '/')}, baseUrl).toString());`);
@@ -31,18 +34,25 @@ function scriptLinesForStep(step) {
       const expected = step.assertion.match(/"([^"]+)"/)?.[1];
       if (expected) lines.push(`  await expect(page).toHaveTitle(/${escapeRegex(expected)}/);`);
     }
+    lines.push(`  await showRecorderStep(page, ${quote(stepLabel)});`);
   }
 
   if (step.type === 'click') {
+    lines.push(`  await showRecorderStep(page, ${quote(stepLabel)}${selectorArg});`);
     lines.push(`  await page.locator(${quote(step.selector)}).click();`);
+    lines.push('  await settleRecorderStep(page);');
   }
 
   if (step.type === 'fill') {
+    lines.push(`  await showRecorderStep(page, ${quote(stepLabel)}${selectorArg});`);
     lines.push(`  await page.locator(${quote(step.selector)}).fill(${quote(step.value ?? '<value>')});`);
+    lines.push('  await settleRecorderStep(page);');
   }
 
   if (step.type === 'assert') {
+    lines.push(`  await showRecorderStep(page, ${quote(stepLabel)}${selectorArg});`);
     lines.push(`  await expect(page.locator(${quote(step.selector)})).toBeVisible();`);
+    lines.push('  await settleRecorderStep(page);');
   }
 
   if (step.screenshot) {
@@ -58,6 +68,63 @@ function helperSource() {
   const resolvedPath = path.resolve(artifactDir, screenshotPath);
   await mkdir(path.dirname(resolvedPath), { recursive: true });
   await page.screenshot({ path: resolvedPath, fullPage: true });
+}
+
+async function showRecorderStep(page, label, selector) {
+  await page.evaluate(({ label, selector }) => {
+    document.querySelectorAll('[data-agents-recorder-highlight]').forEach((element) => {
+      element.style.outline = element.dataset.agentsRecorderOriginalOutline ?? '';
+      element.style.boxShadow = element.dataset.agentsRecorderOriginalBoxShadow ?? '';
+      element.removeAttribute('data-agents-recorder-highlight');
+      delete element.dataset.agentsRecorderOriginalOutline;
+      delete element.dataset.agentsRecorderOriginalBoxShadow;
+    });
+
+    let banner = document.querySelector('[data-agents-recorder-banner]');
+    if (!banner) {
+      banner = document.createElement('div');
+      banner.setAttribute('data-agents-recorder-banner', 'true');
+      Object.assign(banner.style, {
+        position: 'fixed',
+        top: '16px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        zIndex: '2147483647',
+        padding: '12px 18px',
+        borderRadius: '999px',
+        background: 'rgba(15, 23, 42, 0.94)',
+        color: '#fff',
+        font: '700 16px/1.2 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        letterSpacing: '0.01em',
+        boxShadow: '0 18px 48px rgba(15, 23, 42, 0.3)',
+        pointerEvents: 'none'
+      });
+      document.body.appendChild(banner);
+    }
+    banner.textContent = label;
+
+    if (!selector) return;
+
+    let target;
+    try {
+      target = document.querySelector(selector);
+    } catch {
+      return;
+    }
+
+    if (!target) return;
+    target.scrollIntoView({ block: 'center', inline: 'center' });
+    target.dataset.agentsRecorderOriginalOutline = target.style.outline ?? '';
+    target.dataset.agentsRecorderOriginalBoxShadow = target.style.boxShadow ?? '';
+    target.setAttribute('data-agents-recorder-highlight', 'true');
+    target.style.outline = '4px solid #f97316';
+    target.style.boxShadow = '0 0 0 8px rgba(249, 115, 22, 0.28)';
+  }, { label, selector });
+  await page.waitForTimeout(recorderStepDelayMs);
+}
+
+async function settleRecorderStep(page) {
+  await page.waitForTimeout(recorderStepDelayMs);
 }
 
 async function saveRequestedVideo(page) {
